@@ -37,3 +37,57 @@ Configuracio d'acceś al servidor LDAP:
    per tal de muntar dins del home dels usuaris un home de xarxa via samba. 
    Necessitarem configurar el pam_mount.conf.xml que està a la ruta: */etc/security/pam_mount.conf.xml*
    per muntar el recurs samba dels homes.
+   
+   
+   
+### Execució:
+
+```
+docker network create sambanet
+
+docker run --rm --name ldap -h ldap --net sambanet -d sergimc/ldapserver:19smb
+
+docker run --rm --name host -h host --net sambanet -it sergimc/hpamsmb:19smb
+
+docker run --rm --name samba -h samba --net sambanet -it sergimc/serversmb:19smb
+
+```
+
+### Configuració de fitxers de samba:
+
+/etc/samba/smb.conf
+```
+[global]
+        workgroup = SAMBA
+        security = user
+
+        passdb backend = tdbsam
+
+        printing = cups
+        printcap name = cups
+        load printers = yes
+        cups options = raw
+
+[homes]
+        comment = Home Directories
+        valid users = %S, %D%w%S
+        browseable = No
+        read only = No
+        inherit acls = Yes
+
+[printers]
+        comment = All Printers
+        path = /var/tmp
+        printable = Yes
+        create mask = 0600
+        browseable = No
+
+[print$]
+        comment = Printer Drivers
+        path = /var/lib/samba/drivers
+        write list = @printadmin root
+        force group = @printadmin
+        create mask = 0664
+        directory mask = 0775
+
+

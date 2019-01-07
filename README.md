@@ -5,7 +5,7 @@ Podeu trobar les imatges docker al Dockerhub de [sergimc](https://hub.docker.com
 
 ### Imatge:
 
-* **sergimc/smbserver:19smb**  servidor samba amb ldap com a backend.
+* **sergimc/samba:18homes**  servidor samba amb ldap com a backend.
 Per posar en funcionament aquest model es necessàri un server ldap+hostpam+samba
 
 ### Arquitectura:

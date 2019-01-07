@@ -11,9 +11,8 @@ Per posar en funcionament aquest model es necessàri un server ldap+hostpam+samb
 ### Arquitectura:
 Per a que dins d'un host es muntin els homes dels usuaris unix i ldap via samba necessitem:
   - Una xarxa propia per als conjunt de containers que utilitzem: sambanet.
-  - Un servidor ldap amb els usuaris de xarxa: sergimc/ldapserver:19smb.
-  - Un servidor samba que utilitzi LDAP com a backend. També exporta els homes dels usuaris i
-  estarà configurat per tenir usuaris ldap i locals.
+  - Un servidor ldap amb els usuaris de xarxa: sergimc/ldapserver:18homes.
+  - Un servidor samba que exporti els homes dels usuaris samba.
   
 Configuracio d'acceś al servidor LDAP:
 
